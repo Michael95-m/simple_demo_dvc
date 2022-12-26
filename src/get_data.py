@@ -1,12 +1,4 @@
-import os
 import logging
-
-# os.environ[
-#     "KAGGLE_USERNAME"
-# ] = "<your-kaggle-username>"  ## change with your kaggle username from kaggle.json
-# os.environ[
-#     "KAGGLE_KEY"
-# ] = "<your-kaggle-api-key>"  ## change with your api key file from kaggle.json
 from kaggle.api.kaggle_api_extended import KaggleApi
 import zipfile
 

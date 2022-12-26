@@ -1,0 +1,24 @@
+stages:
+  get_data:
+    cmd: python src/get_data.py
+    deps:
+    - src/get_data.py
+    outs:
+    - health_data
+  process_data:
+    cmd: python src/process_data.py
+    deps:
+    - src/process_data.py
+    - health_data/diabetes_data.csv
+    outs:
+    - Processed_data.csv
+  train:
+    cmd: python src/train.py
+    deps:
+    - src/train.py
+    - Processed_data.csv
+    outs:
+    - confusion_matrix.png
+    metrics:
+    - metrics.json:
+          cache: false

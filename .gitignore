@@ -2,3 +2,7 @@
 *.zip
 /.venv
 /venv
+/confusion_matrix.png
+Processed_data.csv
+metrics.json
+kaggle.json

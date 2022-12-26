@@ -1,0 +1,42 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python src/get_data.py
+    deps:
+    - path: src/get_data.py
+      md5: b58b418507f4ebf52c6c6e70cb0bba00
+      size: 566
+    outs:
+    - path: health_data
+      md5: b8bb7fdc4bdc17d51de78a2d01a67227.dir
+      size: 7747253
+      nfiles: 3
+  process_data:
+    cmd: python src/process_data.py
+    deps:
+    - path: health_data/diabetes_data.csv
+      md5: 9a9161518e3622deaa5655b42a2a197b
+      size: 5287141
+    - path: src/process_data.py
+      md5: d345803603db975791616971274ae166
+      size: 449
+    outs:
+    - path: Processed_data.csv
+      md5: bec80b6142f1c2df04c60b9ab3f75c2d
+      size: 4368119
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: Processed_data.csv
+      md5: bec80b6142f1c2df04c60b9ab3f75c2d
+      size: 4368119
+    - path: src/train.py
+      md5: 1c435f2950fcff410deed6838c61329e
+      size: 1452
+    outs:
+    - path: confusion_matrix.png
+      md5: 276d198b3a70e38a67e3925b718374eb
+      size: 18707
+    - path: metrics.json
+      md5: 3326503939cb9e84049f28d2d8a1cb21
+      size: 102
