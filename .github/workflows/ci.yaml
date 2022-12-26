@@ -1,0 +1,21 @@
+name: Project pipeline
+on: [push]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      - uses: iterative/setup-cml@v1
+      - name: Project pipeline
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }
+        run: |
+          pip install -r requirements.txt
+          dvc repro
+
+          cat metrics.json >> report.md
+          echo "![](./confustion_matrix.png)" >> report.md
+          cml comment create report.md
