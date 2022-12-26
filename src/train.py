@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.model_selection import GridSearchCV
 import json
 import logging
 
@@ -22,7 +23,9 @@ X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.fit_transform(X_test)
 
 logging.info("Training Model")
+grid={"C":np.logspace(-3,3,7), "penalty":["l1","l2"]}
 logreg = LogisticRegression()
+logreg_cv=GridSearchCV(logreg,grid,cv=10)
 logreg.fit(X_train_scaled, y_train)
 
 logging.info("Predicting Model")
