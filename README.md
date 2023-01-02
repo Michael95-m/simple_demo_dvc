@@ -11,6 +11,20 @@ export KAGGLE_KEY=*****
 This must be done in your <b>command prompt</b>. 
 If you don't know how to get KAGGLE_USERNAME and KAGGLE_KEY, you should probably read <b>Generating the API Key</b> section of [this article](https://insaid.medium.com/how-to-access-datasets-directly-from-kaggle-6a3552ea891c).
 
+If you don't want to type your KAGGLE_USERNAME and KAGGLE_KEY everytime, there is another method. You could make a shell script (let's assume your_script.sh) and write the following in your script like
+```
+#!/bin/sh
+
+export KAGGLE_USERNAME=******
+export KAGGLE_KEY=*******
+```
+
+Then Run this command in your command prompt like
+```
+. your_script.sh
+```
+
+This approach can have the same effect as the first approach. You don't need to type **export** command everytime and just run the shell script as like that.
 
 ### Installation of dependencies
 ```

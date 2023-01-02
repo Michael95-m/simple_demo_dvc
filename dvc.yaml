@@ -3,6 +3,7 @@ stages:
     cmd: python src/stages/data_get.py --config=params.yaml
     deps:
     - src/stages/data_get.py
+    - src/stages/utils/log.py
     params:
     - base
     - data_load
@@ -15,6 +16,7 @@ stages:
     deps:
     - src/stages/feature_select.py
     - data/raw/diabetes_data.csv
+    - src/stages/utils/log.py
     params:
     - data_load
     - featurize
@@ -26,6 +28,7 @@ stages:
     deps:
     - src/stages/data_split.py
     - data/processed/featured_data.csv
+    - src/stages/utils/log.py
     params:
     - base
     - featurize
@@ -38,7 +41,9 @@ stages:
     cmd: python src/stages/train.py --config params.yaml
     deps:
     - src/stages/train.py
+    - src/stages/utils/train.py
     - data/processed/train.csv
+    - src/stages/utils/log.py
     params:
     - featurize
     - data_split
@@ -51,9 +56,11 @@ stages:
     cmd: python src/stages/evaluate.py --config params.yaml
     deps:
     - src/stages/evaluate.py
+    - src/stages/utils/evaluate.py
     - data/processed/test.csv
     - model/model.joblib
     - model/scaler.joblib
+    - src/stages/utils/log.py
     params:
     - featurize
     - data_split

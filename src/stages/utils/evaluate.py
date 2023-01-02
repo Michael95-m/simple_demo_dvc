@@ -28,7 +28,7 @@ def get_plot(cm: np.ndarray, target_names: List):
     cm_df = pd.DataFrame(cm, index=target_names, columns=target_names)
 
     plt.figure(figsize=(5,4))
-    sns.heatmap(cm_df, annot=True)
+    sns.heatmap(cm_df, annot=True, cmap='Blues', fmt='d')
     plt.title('Confusion Matrix')
     plt.ylabel('Actal Values')
     plt.xlabel('Predicted Values')
