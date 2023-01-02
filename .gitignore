@@ -6,3 +6,11 @@
 Processed_data.csv
 metrics.json
 kaggle.json
+__pycache__
+.ipynb_checkpoints
+.vscode
+model/*
+report/*
+data/*
+export_data.sh
+

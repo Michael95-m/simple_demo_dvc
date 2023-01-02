@@ -1,0 +1,44 @@
+base:
+  random_state: 42
+  log_level:  INFO
+
+data_load:
+  dataset_zip: 'health-dataset.zip'
+  dataset_folder: 'data/raw'
+  dataset_csv:  'data/raw/diabetes_data.csv'
+
+featurize:
+  feature_folder: 'data/processed'
+  features_path:  'data/processed/featured_data.csv'
+  drop_features:
+    - Veggies
+  target_column:  Diabetes
+
+data_split:
+  test_size: 0.3
+  trainset_path: 'data/processed/train.csv'
+  testset_path: 'data/processed/test.csv'
+
+train:
+  cv: 3
+  estimator_name: logreg
+  estimators:
+    logreg:
+      param_grid:
+        C:  [0.001]
+        max_iter: [100]
+        solver: ['lbfgs']
+        multi_class: ['multinomial']
+  model_folder: 'model'
+  model_path: 'model/model.joblib'
+  scaler_path:  'model/scaler.joblib'
+
+evaluate:
+  report_folder: 'report'
+  accuracy_report_path: 'report/report.json'
+  confusion_matrix_path: 'report/confusion_matrix.png'
+  target_names:
+    - Diabetic
+    - Non diabetic
+  
+  

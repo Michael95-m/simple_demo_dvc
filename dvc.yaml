@@ -1,24 +1,65 @@
 stages:
   get_data:
-    cmd: python src/get_data.py
+    cmd: python src/stages/data_get.py --config=params.yaml
     deps:
-    - src/get_data.py
+    - src/stages/data_get.py
+    params:
+    - base
+    - data_load
     outs:
-    - health_data
-  process_data:
-    cmd: python src/process_data.py
+    - health-dataset.zip
+    - data/raw/diabetes_data.csv
+  
+  featurize:
+    cmd: python src/stages/feature_select.py --config params.yaml
     deps:
-    - src/process_data.py
-    - health_data/diabetes_data.csv
+    - src/stages/feature_select.py
+    - data/raw/diabetes_data.csv
+    params:
+    - data_load
+    - featurize
     outs:
-    - Processed_data.csv
+    - data/processed/featured_data.csv
+
+  data_split:
+    cmd: python src/stages/data_split.py --config params.yaml
+    deps:
+    - src/stages/data_split.py
+    - data/processed/featured_data.csv
+    params:
+    - base
+    - featurize
+    - data_split
+    outs:
+    - data/processed/train.csv
+    - data/processed/test.csv
+
   train:
-    cmd: python src/train.py
+    cmd: python src/stages/train.py --config params.yaml
     deps:
-    - src/train.py
-    - Processed_data.csv
+    - src/stages/train.py
+    - data/processed/train.csv
+    params:
+    - featurize
+    - data_split
+    - train
     outs:
-    - confusion_matrix.png
-    metrics:
-    - metrics.json:
-          cache: false
+    - model/model.joblib
+    - model/scaler.joblib
+
+  evaluate:
+    cmd: python src/stages/evaluate.py --config params.yaml
+    deps:
+    - src/stages/evaluate.py
+    - data/processed/test.csv
+    - model/model.joblib
+    - model/scaler.joblib
+    params:
+    - featurize
+    - data_split
+    - train
+    - evaluate
+    outs:
+    - report/report.json
+    - report/confusion_matrix.png
+
