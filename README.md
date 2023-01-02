@@ -34,10 +34,17 @@ You can either install that either in your conda environment or in your python v
 
 ### Processing Pipeline
 
-There are three steps needed to done by this project. First, download the data, process the data and train and evaluate the model.
-All these three steps can be reproduced by using dvc by this command
+There are five steps needed to done by this project. First, download the data, select the features,split the data, train the model and evaluate it.
+All these five steps can be reproduced by using dvc by this command
 ```
 dvc repro
 ``` 
 
-In order to run this command, we need to prepare <b>dvc.yaml</b>. In this yaml file, all three stages named get_data, process_data and train are well defined by their cmd(command), deps(dependency), outs(output) and metrics(metric).
+In order to run this command, we need to prepare <b>dvc.yaml</b>. In this yaml file, all five stages named data_get, feature_select, data_split, train and evaluate are well defined by their cmd(command), deps(dependency), params(parameter), outs(output) and metrics(metric).
+
+*dvc repro* is useful for automation of the pipeline. It is also useful for reproducibility of the data pipeline.
+
+
+### CI (Continous Integration)
+
+For CI, ci.yaml is created inside *.github/workflows* folder. You can write certain commands from **cml** library to evalute your model result and checking error inside your pipeline.
