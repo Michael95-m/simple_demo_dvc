@@ -30,9 +30,10 @@ def get_data(config_path: Text) -> None:
 
 if __name__ == "__main__":
 
-    kaggle_data = read_kaggle_json()
-    os.environ["KAGGLE_USERNAME"] = kaggle_data["username"]
-    os.environ["KAGGLE_KEY"] = kaggle_data["key"]
+    # kaggle_data = read_kaggle_json()
+    # os.environ["KAGGLE_USERNAME"] = kaggle_data["username"]
+    # os.environ["KAGGLE_KEY"] = kaggle_data["key"]
+    ## just export the environment variables in command
     from kaggle.api.kaggle_api_extended import KaggleApi
 
     args_parser = argparse.ArgumentParser()

@@ -11,20 +11,20 @@ import os
 
 def data_train(config_path: Text) -> None:
 
-    with open(config_path) as conf:
-        conf = yaml.safe_load(conf)
+    with open(config_path) as conf_file:
+        config = yaml.safe_load(conf_file)
 
     logger = getlogger("TRAIN MODEL")
 
     logger.info("Training set loaded")
-    train_df = pd.read_csv(conf["data_split"]["trainset_path"])
+    train_df = pd.read_csv(config["data_split"]["trainset_path"])
     
-    estimator = conf["train"]["estimator_name"]
+    estimator = config["train"]["estimator_name"]
     logger.info(f"Estimator name: {estimator}")
 
-    target = conf["featurize"]["target_column"]
-    param_grid = conf["train"]["estimators"][estimator]["param_grid"]
-    cv = conf["train"]["cv"]
+    target = config["featurize"]["target_column"]
+    param_grid = config["train"]["estimators"][estimator]["param_grid"]
+    cv = config["train"]["cv"]
 
     y_train = train_df.loc[:, target].values.astype('int32')
     x_train = train_df.drop(target, axis=1)
@@ -35,12 +35,12 @@ def data_train(config_path: Text) -> None:
                         cv=cv)
     logger.info(f"Best Score: {round(model.best_score_, 2)}")
 
-    model_folder_path = conf["train"]["model_folder"]
+    model_folder_path = config["train"]["model_folder"]
     if not os.path.exists(model_folder_path):
         os.makedirs(model_folder_path)
 
-    model_path = conf["train"]["model_path"]
-    scaler_path = conf["train"]["scaler_path"]
+    model_path = config["train"]["model_path"]
+    scaler_path = config["train"]["scaler_path"]
     logger.info("Save model")
     joblib.dump(model, model_path)
     joblib.dump(scaler, scaler_path)
