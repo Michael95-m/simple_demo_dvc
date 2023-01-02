@@ -4,8 +4,8 @@ stages:
     cmd: python src/get_data.py
     deps:
     - path: src/get_data.py
-      md5: b58b418507f4ebf52c6c6e70cb0bba00
-      size: 566
+      md5: b0d4028aee353b79137516d3275125f0
+      size: 556
     outs:
     - path: health_data
       md5: b8bb7fdc4bdc17d51de78a2d01a67227.dir
@@ -31,8 +31,8 @@ stages:
       md5: bec80b6142f1c2df04c60b9ab3f75c2d
       size: 4368119
     - path: src/train.py
-      md5: 1c435f2950fcff410deed6838c61329e
-      size: 1452
+      md5: f6bd971b43cfc84ca954afbca27ecec8
+      size: 1597
     outs:
     - path: confusion_matrix.png
       md5: 276d198b3a70e38a67e3925b718374eb
