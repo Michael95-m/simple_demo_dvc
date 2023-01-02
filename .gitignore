@@ -12,4 +12,5 @@ __pycache__
 model/*
 report/*
 data/*
+export_data.sh
 

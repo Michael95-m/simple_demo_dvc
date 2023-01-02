@@ -1,10 +1,65 @@
 stages:
   get_data:
-    cmd: python src/stages/data_load.py --config=params.yaml
+    cmd: python src/stages/data_get.py --config=params.yaml
     deps:
-    - src/stages/data_load.py
+    - src/stages/data_get.py
     params:
     - base
     - data_load
     outs:
+    - health-dataset.zip
     - data/raw/diabetes_data.csv
+  
+  featurize:
+    cmd: python src/stages/feature_select.py --config params.yaml
+    deps:
+    - src/stages/feature_select.py
+    - data/raw/diabetes_data.csv
+    params:
+    - data_load
+    - featurize
+    outs:
+    - data/processed/featured_data.csv
+
+  data_split:
+    cmd: python src/stages/data_split.py --config params.yaml
+    deps:
+    - src/stages/data_split.py
+    - data/processed/featured_data.csv
+    params:
+    - base
+    - featurize
+    - data_split
+    outs:
+    - data/processed/train.csv
+    - data/processed/test.csv
+
+  train:
+    cmd: python src/stages/train.py --config params.yaml
+    deps:
+    - src/stages/train.py
+    - data/processed/train.csv
+    params:
+    - featurize
+    - data_split
+    - train
+    outs:
+    - model/model.joblib
+    - model/scaler.joblib
+
+  evaluate:
+    cmd: python src/stages/evaluate.py --config params.yaml
+    deps:
+    - src/stages/evaluate.py
+    - data/processed/test.csv
+    - model/model.joblib
+    - model/scaler.joblib
+    params:
+    - featurize
+    - data_split
+    - train
+    - evaluate
+    outs:
+    - report/report.json
+    - report/confusion_matrix.png
+
