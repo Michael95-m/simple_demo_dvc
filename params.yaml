@@ -25,8 +25,8 @@ train:
   estimators:
     logreg:
       param_grid:
-        C:  [0.001]
-        max_iter: [100]
+        C:  [0.1]
+        max_iter: [200]
         solver: ['lbfgs']
         multi_class: ['multinomial']
   model_folder: 'model'
@@ -37,8 +37,9 @@ evaluate:
   report_folder: 'report'
   accuracy_report_path: 'report/report.json'
   confusion_matrix_path: 'report/confusion_matrix.png'
+  translated_report_path: 'report/confusion_matrix_data.csv'
   target_names:
-    - Diabetic
-    - Non diabetic
+    - no_diabetes
+    - diabetes
   
   
