@@ -67,6 +67,8 @@ stages:
     - train
     - evaluate
     outs:
-    - report/report.json
     - report/confusion_matrix.png
+    metrics:
+    - report/report.json:
+        cache: false
 

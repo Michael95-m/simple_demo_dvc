@@ -84,7 +84,7 @@ stages:
           scaler_path: model/scaler.joblib
     outs:
     - path: model/model.joblib
-      md5: 829378596e8d719c4b3a7941c1a0a37b
+      md5: 86c8889f84d6314a76ceae0478bc1873
       size: 3166
     - path: model/scaler.joblib
       md5: 100ea0768b57621eca4200adc453ce7d
@@ -158,7 +158,7 @@ stages:
       md5: 93aec962fccd595916b5f99b52ece2ad
       size: 1604364
     - path: model/model.joblib
-      md5: 829378596e8d719c4b3a7941c1a0a37b
+      md5: 86c8889f84d6314a76ceae0478bc1873
       size: 3166
     - path: model/scaler.joblib
       md5: 100ea0768b57621eca4200adc453ce7d
