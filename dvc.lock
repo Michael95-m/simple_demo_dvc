@@ -42,8 +42,8 @@ stages:
     cmd: python src/stages/train.py --config params.yaml
     deps:
     - path: data/processed/train.csv
-      md5: 963b85eb6616b4f262fbd51962e6d49e
-      size: 3742507
+      md5: 6a5c7defbd522ec508be4464727ccb5e
+      size: 3453410
     - path: src/stages/train.py
       md5: 351f8e813af93df121b98682995300a1
       size: 1731
@@ -72,9 +72,9 @@ stages:
             logreg:
               param_grid:
                 C:
-                - 0.001
+                - 0.1
                 max_iter:
-                - 100
+                - 200
                 solver:
                 - lbfgs
                 multi_class:
@@ -84,11 +84,11 @@ stages:
           scaler_path: model/scaler.joblib
     outs:
     - path: model/model.joblib
-      md5: 829378596e8d719c4b3a7941c1a0a37b
-      size: 3166
+      md5: ffe939cc91f49253d62da06f8bcfe589
+      size: 3150
     - path: model/scaler.joblib
-      md5: 100ea0768b57621eca4200adc453ce7d
-      size: 1630
+      md5: 034384424b5bd54ec590a37f4caf3f8f
+      size: 1606
   featurize:
     cmd: python src/stages/feature_select.py --config params.yaml
     deps:
@@ -124,8 +124,8 @@ stages:
       md5: d4027581f861aab6fe57755ab8fbfb95
       size: 4933672
     - path: src/stages/data_split.py
-      md5: 9f23e94930b827bb7467e6778b31a4bd
-      size: 910
+      md5: a01772d4702aeefe1a96738eb9ce512e
+      size: 1135
     - path: src/stages/utils/log.py
       md5: ec6d9907a691aa06324ad985951b4128
       size: 625
@@ -146,29 +146,29 @@ stages:
           target_column: Diabetes
     outs:
     - path: data/processed/test.csv
-      md5: 93aec962fccd595916b5f99b52ece2ad
-      size: 1604364
+      md5: 55384cfd635be459af11e2738b3d5fd5
+      size: 1480417
     - path: data/processed/train.csv
-      md5: 963b85eb6616b4f262fbd51962e6d49e
-      size: 3742507
+      md5: 6a5c7defbd522ec508be4464727ccb5e
+      size: 3453410
   evaluate:
     cmd: python src/stages/evaluate.py --config params.yaml
     deps:
     - path: data/processed/test.csv
-      md5: 93aec962fccd595916b5f99b52ece2ad
-      size: 1604364
+      md5: 55384cfd635be459af11e2738b3d5fd5
+      size: 1480417
     - path: model/model.joblib
-      md5: 829378596e8d719c4b3a7941c1a0a37b
-      size: 3166
+      md5: ffe939cc91f49253d62da06f8bcfe589
+      size: 3150
     - path: model/scaler.joblib
-      md5: 100ea0768b57621eca4200adc453ce7d
-      size: 1630
+      md5: 034384424b5bd54ec590a37f4caf3f8f
+      size: 1606
     - path: src/stages/evaluate.py
-      md5: e292ed17c142b0e47f1bea72c496e740
-      size: 2004
+      md5: 0c69b16042d41bcab6d0f9bff1dfabd3
+      size: 2204
     - path: src/stages/utils/evaluate.py
-      md5: 62cde71e19e64a5b79883820ba0ee59c
-      size: 1018
+      md5: d44f180f6e728dbefa1636c5b04e299d
+      size: 1437
     - path: src/stages/utils/log.py
       md5: ec6d9907a691aa06324ad985951b4128
       size: 625
@@ -182,9 +182,10 @@ stages:
           report_folder: report
           accuracy_report_path: report/report.json
           confusion_matrix_path: report/confusion_matrix.png
+          translated_report_path: report/confusion_matrix_data.csv
           target_names:
-          - Diabetic
-          - Non diabetic
+          - no_diabetes
+          - diabetes
         featurize:
           feature_folder: data/processed
           features_path: data/processed/featured_data.csv
@@ -198,9 +199,9 @@ stages:
             logreg:
               param_grid:
                 C:
-                - 0.001
+                - 0.1
                 max_iter:
-                - 100
+                - 200
                 solver:
                 - lbfgs
                 multi_class:
@@ -210,8 +211,11 @@ stages:
           scaler_path: model/scaler.joblib
     outs:
     - path: report/confusion_matrix.png
-      md5: 5170e99a1c9cfd304a92340058ccd7ad
-      size: 23771
+      md5: ff15a829f98731ab013bbdd593fcb855
+      size: 24622
+    - path: report/confusion_matrix_data.csv
+      md5: 974f4d26ac0d94a9c2bfe734741fe39a
+      size: 443768
     - path: report/report.json
-      md5: b80796c1658d5b968314ce69253e637f
+      md5: 69a5aa1c60f000fd5e0b79483a5ee825
       size: 74

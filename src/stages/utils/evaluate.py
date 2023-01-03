@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.metrics import confusion_matrix
-from typing import Dict, List
+from typing import Dict, List, Text
 import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
@@ -10,6 +10,22 @@ def get_confusion_matrix(y_pred: np.ndarray, y_test: np.ndarray) -> np.ndarray:
     cm = confusion_matrix(y_test, y_pred)
 
     return cm
+
+def translate_result(data: int) -> Text:
+
+    if data == 0:
+        return "no_diabetes"
+    else:
+        return "diabetes"
+
+def get_translated_result(y_pred: np.ndarray, y_test: np.ndarray) -> pd.DataFrame:
+
+    y_pred = [ translate_result(data) for data in y_pred] 
+    y_test = [ translate_result(data) for data in y_test]  
+
+    cm_df = pd.DataFrame({"y_test": y_test, "y_pred": y_pred})
+
+    return cm_df 
 
 def get_report(cm: np.ndarray) -> Dict:
     

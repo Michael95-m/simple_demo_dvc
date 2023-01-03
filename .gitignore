@@ -13,4 +13,5 @@ model/*
 report/*
 data/*
 export_data.sh
-
+notebook/*
+dvc_plots

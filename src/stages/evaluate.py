@@ -3,7 +3,7 @@ import argparse
 from typing import Text
 import yaml
 import joblib
-from utils.evaluate import get_report, get_confusion_matrix, get_plot
+from utils.evaluate import get_report, get_confusion_matrix, get_plot, get_translated_result
 import json
 import os
 from utils.log import getlogger
@@ -42,6 +42,10 @@ def model_evaluate(config_path: Text) -> None:
     with open(accuracy_report_path, "w") as json_file:
         json.dump(report, json_file, indent=4)
     logger.info(f"Save the report at: {accuracy_report_path}")
+
+    logger.info("Save translated result to plot")
+    cm_df = get_translated_result(y_pred, y_test)
+    cm_df.to_csv(config["evaluate"]["translated_report_path"], index=False)
 
     logger.info("Save Confusion Matrix")
     confusion_matrix_path = config["evaluate"]["confusion_matrix_path"]
