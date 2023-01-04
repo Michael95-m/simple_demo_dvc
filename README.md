@@ -1,7 +1,7 @@
 # Simple demonstration about how to use dvc library
-## 1. Project pipeline
+## 1. Requirements
 
-### Downloading api key from kaggle
+### 1.1 Downloading api key from kaggle
 
 Since the data will be downloaded from kaggle, you first need to export your kaggle username and kaggle key as the environment variables like
 ```
@@ -26,13 +26,20 @@ Then Run this command in your command prompt like
 
 This approach can have the same effect as the first approach. You don't need to type **export** command everytime and just run the shell script as like that.
 
-### Installation of dependencies
+Note `export` command will work only for **linux** machines. If you use **window** machine, use `SET` instead of `export` (SET is equivalent of export in window). And also second method will not work in **window** machines. Honestly, I don't know how to write shell script equivalent in window OS.
+
+### 1.2. Installation of dependencies
 ```
 pip install -r requirements.txt
 ```
 You can either install that either in your conda environment or in your python virtual environment. And I used python3.7 for this repository.
 
-### Processing Pipeline
+If you run in your python virtual environment, then add virtual environment to Jupyter Notebook
+```
+python -m ipykernel install --user --name=dvc-venv
+```
+
+## 2. Processing Pipeline
 
 There are five steps needed to done by this project. First, download the data, select the features,split the data, train the model and evaluate it.
 All these five steps can be reproduced by using dvc by this command
@@ -44,9 +51,9 @@ In order to run this command, we need to prepare <b>dvc.yaml</b>. In this yaml f
 
 `dvc repro` is useful for automation of the pipeline. It is also useful for reproducibility of the data pipeline.
 
-## 2. Visualizing metrics and plots
+## 3. Visualizing metrics and plots
 
-### 2.1. Visualizing metrics
+### 3.1. Visualizing metrics
 
 It is vital to have reproducible pipelines so that we can easily manage experiments. We also need to evaluate  experiments by their resulting metrics such as accuracy. That's why metrics are a requirement for experiment management.
 
@@ -60,7 +67,7 @@ dvc metrics show
 
 Another useful command is `dvc metrics diff`. This command shows the difference between the experiments.
 
-### 2.2 Visualizing Plots
+### 3.2 Visualizing Plots
 
 In most of the cases, visualizing only metrics is not enough. We also need to visualize the plots too. 
 
@@ -71,6 +78,6 @@ In my demo, the pipeline can generate the confusion matrix by using **seaborn** 
 dvc plots show report/confusion_matrix_data.csv --template confusion -x y_pred -y y_test 
 ```
 
-## 3. CI (Continous Integration)
+## 4. CI (Continous Integration)
 
 For CI, ci.yaml is created inside `.github/workflows` folder. You can write certain commands from **cml** library to output your model result  to readme file and also can check the error inside your pipeline.
