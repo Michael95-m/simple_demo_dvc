@@ -10,7 +10,7 @@ def data_split(config_path: Text) -> None:
     with open(config_path) as conf_file:
         config = yaml.safe_load(conf_file)
 
-    logger = getlogger("DATA_SPLIT")
+    logger = getlogger("DATA_SPLIT", log_level=config["base"]["log_level"])
 
     df = pd.read_csv(config["featurize"]["features_path"])
     logger.debug(f"Original num of columns: {len(df.columns)}")

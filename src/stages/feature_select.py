@@ -9,7 +9,7 @@ def feature_select(config_path: Text) -> None:
     with open(config_path) as conf_file:
         config = yaml.safe_load(conf_file)
 
-    logger = getlogger("FEATURE_SELECT")
+    logger = getlogger("FEATURE_SELECT", config["base"]["log_level"])
     logger.info("Read raw data")
     df = pd.read_csv(config['data_load']['dataset_csv'])
     if not os.path.exists(config['featurize']['feature_folder']):

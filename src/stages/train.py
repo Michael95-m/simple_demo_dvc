@@ -14,7 +14,7 @@ def data_train(config_path: Text) -> None:
     with open(config_path) as conf_file:
         config = yaml.safe_load(conf_file)
 
-    logger = getlogger("TRAIN MODEL")
+    logger = getlogger("TRAIN MODEL", config["base"]["log_level"])
 
     logger.info("Training set loaded")
     train_df = pd.read_csv(config["data_split"]["trainset_path"])

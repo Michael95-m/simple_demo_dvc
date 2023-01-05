@@ -12,7 +12,7 @@ def model_evaluate(config_path: Text) -> None:
     with open(config_path) as conf_file:
         config = yaml.safe_load(conf_file)
 
-    logger = getlogger("MODEL EVALUATE")
+    logger = getlogger("MODEL EVALUATE", config["base"]["log_level"])
 
     logger.info("Testset loaded")
     test = pd.read_csv(config["data_split"]["testset_path"])
