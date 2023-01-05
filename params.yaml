@@ -21,7 +21,7 @@ data_split:
 
 train:
   cv: 3
-  estimator_name: knn
+  estimator_name: logreg
   estimators:
     logreg:
       param_grid:
