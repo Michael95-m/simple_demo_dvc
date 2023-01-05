@@ -1,4 +1,5 @@
 from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
@@ -14,10 +15,11 @@ class UnsupportedClassifier(Exception):
 
 def get_supported_estimator() -> Dict:
     return {
-        "logreg": LogisticRegression
+        "logreg": LogisticRegression,
+        "knn":  KNeighborsClassifier
     }
 
-def train(x_train: pd.DataFrame, y_train: np.ndarray, estimator_name: Text, target: Text, param_grid: Dict, cv: int):
+def train(x_train: pd.DataFrame, y_train: np.ndarray, estimator_name: Text, param_grid: Dict, cv: int):
 
     estimators = get_supported_estimator()
 

@@ -45,14 +45,14 @@ stages:
       md5: 6a5c7defbd522ec508be4464727ccb5e
       size: 3453410
     - path: src/stages/train.py
-      md5: 351f8e813af93df121b98682995300a1
-      size: 1731
+      md5: 0c1f8febce7c1a71089fe8b4ab29f559
+      size: 1716
     - path: src/stages/utils/log.py
       md5: ec6d9907a691aa06324ad985951b4128
       size: 625
     - path: src/stages/utils/train.py
-      md5: c2e27fae31346c168cc053c705b7e4e4
-      size: 1259
+      md5: 747e8def151638d981c72ccdda0436b9
+      size: 1334
     params:
       params.yaml:
         data_split:
@@ -67,7 +67,7 @@ stages:
           target_column: Diabetes
         train:
           cv: 3
-          estimator_name: logreg
+          estimator_name: knn
           estimators:
             logreg:
               param_grid:
@@ -79,13 +79,21 @@ stages:
                 - lbfgs
                 multi_class:
                 - multinomial
+            knn:
+              param_grid:
+                n_neighbors:
+                - 1
+                - 3
+                - 5
+                - 7
+                - 9
           model_folder: model
           model_path: model/model.joblib
           scaler_path: model/scaler.joblib
     outs:
     - path: model/model.joblib
-      md5: ffe939cc91f49253d62da06f8bcfe589
-      size: 3150
+      md5: d34ff9c384f2d28d7076f8ca9489b90d
+      size: 6732878
     - path: model/scaler.joblib
       md5: 034384424b5bd54ec590a37f4caf3f8f
       size: 1606
@@ -158,8 +166,8 @@ stages:
       md5: 55384cfd635be459af11e2738b3d5fd5
       size: 1480417
     - path: model/model.joblib
-      md5: ffe939cc91f49253d62da06f8bcfe589
-      size: 3150
+      md5: d34ff9c384f2d28d7076f8ca9489b90d
+      size: 6732878
     - path: model/scaler.joblib
       md5: 034384424b5bd54ec590a37f4caf3f8f
       size: 1606
@@ -194,7 +202,7 @@ stages:
           target_column: Diabetes
         train:
           cv: 3
-          estimator_name: logreg
+          estimator_name: knn
           estimators:
             logreg:
               param_grid:
@@ -206,16 +214,24 @@ stages:
                 - lbfgs
                 multi_class:
                 - multinomial
+            knn:
+              param_grid:
+                n_neighbors:
+                - 1
+                - 3
+                - 5
+                - 7
+                - 9
           model_folder: model
           model_path: model/model.joblib
           scaler_path: model/scaler.joblib
     outs:
     - path: report/confusion_matrix.png
-      md5: ff15a829f98731ab013bbdd593fcb855
-      size: 24622
+      md5: 9492d0020fe3189245f6bc653453ca37
+      size: 24605
     - path: report/confusion_matrix_data.csv
-      md5: 974f4d26ac0d94a9c2bfe734741fe39a
-      size: 443768
+      md5: aea8e757d6f078316dbe4081c1dbb145
+      size: 442736
     - path: report/report.json
-      md5: 69a5aa1c60f000fd5e0b79483a5ee825
+      md5: 18be0fdd9057c4e36db49ee2635b21c2
       size: 74
