@@ -31,7 +31,7 @@ def data_train(config_path: Text) -> None:
 
     logger.info("Train model")
     model, scaler = train(x_train=x_train, y_train=y_train, estimator_name=estimator,
-                        target=target, param_grid=param_grid,
+                        param_grid=param_grid,
                         cv=cv)
     logger.info(f"Best Score: {round(model.best_score_, 2)}")
 
