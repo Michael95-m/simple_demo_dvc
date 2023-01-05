@@ -67,7 +67,7 @@ stages:
           target_column: Diabetes
         train:
           cv: 3
-          estimator_name: knn
+          estimator_name: logreg
           estimators:
             logreg:
               param_grid:
@@ -92,8 +92,8 @@ stages:
           scaler_path: model/scaler.joblib
     outs:
     - path: model/model.joblib
-      md5: d34ff9c384f2d28d7076f8ca9489b90d
-      size: 6732878
+      md5: 3d0b6f3a7768a7d731d0f1902e6b0527
+      size: 3150
     - path: model/scaler.joblib
       md5: 034384424b5bd54ec590a37f4caf3f8f
       size: 1606
@@ -166,8 +166,8 @@ stages:
       md5: 55384cfd635be459af11e2738b3d5fd5
       size: 1480417
     - path: model/model.joblib
-      md5: d34ff9c384f2d28d7076f8ca9489b90d
-      size: 6732878
+      md5: 3d0b6f3a7768a7d731d0f1902e6b0527
+      size: 3150
     - path: model/scaler.joblib
       md5: 034384424b5bd54ec590a37f4caf3f8f
       size: 1606
@@ -202,7 +202,7 @@ stages:
           target_column: Diabetes
         train:
           cv: 3
-          estimator_name: knn
+          estimator_name: logreg
           estimators:
             logreg:
               param_grid:
@@ -227,11 +227,11 @@ stages:
           scaler_path: model/scaler.joblib
     outs:
     - path: report/confusion_matrix.png
-      md5: 9492d0020fe3189245f6bc653453ca37
-      size: 24605
+      md5: ff15a829f98731ab013bbdd593fcb855
+      size: 24622
     - path: report/confusion_matrix_data.csv
-      md5: aea8e757d6f078316dbe4081c1dbb145
-      size: 442736
+      md5: 974f4d26ac0d94a9c2bfe734741fe39a
+      size: 443768
     - path: report/report.json
-      md5: 18be0fdd9057c4e36db49ee2635b21c2
+      md5: 69a5aa1c60f000fd5e0b79483a5ee825
       size: 74
