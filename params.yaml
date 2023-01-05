@@ -21,7 +21,7 @@ data_split:
 
 train:
   cv: 3
-  estimator_name: logreg
+  estimator_name: xgb
   estimators:
     logreg:
       param_grid:
@@ -32,6 +32,13 @@ train:
     knn:
       param_grid:
         n_neighbors:  [1, 3, 5, 7, 9]
+    xgb:
+      param_grid:
+        min_child_weight: [1, 5]
+        gamma:  [1, 5]
+        subsample: [1.0]
+        colsample_bytree: [0.6, 0.8, 1.0]
+        max_depth: [3]
   model_folder: 'model'
   model_path: 'model/model.joblib'
   scaler_path:  'model/scaler.joblib'
