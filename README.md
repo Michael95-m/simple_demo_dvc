@@ -65,7 +65,7 @@ To track the metrics, we need to add `metrics` parameter in the stage (evaluate 
 dvc metrics show
 ```
 
-Another useful command is `dvc metrics diff`. This command shows the difference between the experiments.
+Another useful command is `dvc metrics diff`. This command shows the difference between the experiments. In order to work properly with this command, you need to track the **log file** associated with accuracy (**report/report.json** in my demo) with **git**. If that log file is ignored by git, you will get the blank value in `head` column.
 
 ### 3.2 Visualizing Plots
 
