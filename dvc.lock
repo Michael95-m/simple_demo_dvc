@@ -51,8 +51,8 @@ stages:
       md5: ec6d9907a691aa06324ad985951b4128
       size: 625
     - path: src/stages/utils/train.py
-      md5: 747e8def151638d981c72ccdda0436b9
-      size: 1334
+      md5: adcbba04fdaa3aca097f23e595eff6ac
+      size: 1399
     params:
       params.yaml:
         data_split:
@@ -67,7 +67,7 @@ stages:
           target_column: Diabetes
         train:
           cv: 3
-          estimator_name: logreg
+          estimator_name: xgb
           estimators:
             logreg:
               param_grid:
@@ -87,13 +87,29 @@ stages:
                 - 5
                 - 7
                 - 9
+            xgb:
+              param_grid:
+                min_child_weight:
+                - 1
+                - 5
+                gamma:
+                - 1
+                - 5
+                subsample:
+                - 1.0
+                colsample_bytree:
+                - 0.6
+                - 0.8
+                - 1.0
+                max_depth:
+                - 3
           model_folder: model
           model_path: model/model.joblib
           scaler_path: model/scaler.joblib
     outs:
     - path: model/model.joblib
-      md5: fb0dd46720ab5aa53b94a3f327bc24fd
-      size: 3150
+      md5: a0353564814edf230e80305ab844d808
+      size: 126041
     - path: model/scaler.joblib
       md5: 034384424b5bd54ec590a37f4caf3f8f
       size: 1606
@@ -166,8 +182,8 @@ stages:
       md5: 55384cfd635be459af11e2738b3d5fd5
       size: 1480417
     - path: model/model.joblib
-      md5: fb0dd46720ab5aa53b94a3f327bc24fd
-      size: 3150
+      md5: a0353564814edf230e80305ab844d808
+      size: 126041
     - path: model/scaler.joblib
       md5: 034384424b5bd54ec590a37f4caf3f8f
       size: 1606
@@ -202,7 +218,7 @@ stages:
           target_column: Diabetes
         train:
           cv: 3
-          estimator_name: logreg
+          estimator_name: xgb
           estimators:
             logreg:
               param_grid:
@@ -222,16 +238,32 @@ stages:
                 - 5
                 - 7
                 - 9
+            xgb:
+              param_grid:
+                min_child_weight:
+                - 1
+                - 5
+                gamma:
+                - 1
+                - 5
+                subsample:
+                - 1.0
+                colsample_bytree:
+                - 0.6
+                - 0.8
+                - 1.0
+                max_depth:
+                - 3
           model_folder: model
           model_path: model/model.joblib
           scaler_path: model/scaler.joblib
     outs:
     - path: report/confusion_matrix.png
-      md5: ff15a829f98731ab013bbdd593fcb855
-      size: 24622
+      md5: 4c9d3030f20a5e0fac89a4642a3dfaaa
+      size: 24628
     - path: report/confusion_matrix_data.csv
-      md5: 974f4d26ac0d94a9c2bfe734741fe39a
-      size: 443768
+      md5: 74b56f360c6dd4817227e337b92e38e6
+      size: 442529
     - path: report/report.json
-      md5: 69a5aa1c60f000fd5e0b79483a5ee825
-      size: 74
+      md5: b54522546ed4704bc56e6fabd4fb43ff
+      size: 73
