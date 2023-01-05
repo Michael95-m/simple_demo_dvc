@@ -1,5 +1,5 @@
 {
-    "accuracy": 0.73,
-    "specificity": 0.69,
+    "accuracy": 0.75,
+    "specificity": 0.72,
     "sensitivity": 0.77
 }
