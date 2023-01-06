@@ -7,6 +7,7 @@ import joblib
 import argparse
 import os
 
+
 def data_train(config_path: Text) -> None:
 
     with open(config_path) as conf_file:
@@ -16,7 +17,7 @@ def data_train(config_path: Text) -> None:
 
     logger.info("Training set loaded")
     train_df = pd.read_csv(config["data_split"]["trainset_path"])
-    
+
     estimator = config["train"]["estimator_name"]
     logger.info(f"Estimator name: {estimator}")
 
@@ -24,14 +25,18 @@ def data_train(config_path: Text) -> None:
     param_grid = config["train"]["estimators"][estimator]["param_grid"]
     cv = config["train"]["cv"]
 
-    y_train = train_df.loc[:, target].values.astype('int32')
+    y_train = train_df.loc[:, target].values.astype("int32")
     x_train = train_df.drop(target, axis=1)
 
     logger.info("Train model")
-    model, scaler = train(x_train=x_train, y_train=y_train, estimator_name=estimator,
-                        param_grid=param_grid,
-                        cv=cv,
-                        random_state=config["base"]["random_state"])
+    model, scaler = train(
+        x_train=x_train,
+        y_train=y_train,
+        estimator_name=estimator,
+        param_grid=param_grid,
+        cv=cv,
+        random_state=config["base"]["random_state"],
+    )
     logger.info(f"Best Score: {round(model.best_score_, 2)}")
 
     model_folder_path = config["train"]["model_folder"]
@@ -44,6 +49,7 @@ def data_train(config_path: Text) -> None:
     joblib.dump(model, model_path)
     joblib.dump(scaler, scaler_path)
 
+
 if __name__ == "__main__":
 
     args_parser = argparse.ArgumentParser()
@@ -51,10 +57,3 @@ if __name__ == "__main__":
     args = args_parser.parse_args()
 
     data_train(args.conf)
-
-
-    
-    
-    
-
-

@@ -3,10 +3,16 @@ import argparse
 from typing import Text
 import yaml
 import joblib
-from utils.evaluate import get_report, get_confusion_matrix, get_plot, get_translated_result
+from utils.evaluate import (
+    get_report,
+    get_confusion_matrix,
+    get_plot,
+    get_translated_result,
+)
 import json
 import os
 from utils.log import getlogger
+
 
 def model_evaluate(config_path: Text) -> None:
     with open(config_path) as conf_file:
@@ -31,7 +37,7 @@ def model_evaluate(config_path: Text) -> None:
     y_pred = model.predict(x_test_scaled)
 
     logger.info("Calculate the accuracy")
-    cm  = get_confusion_matrix(y_pred, y_test)
+    cm = get_confusion_matrix(y_pred, y_test)
     report = get_report(cm)
     report_folder = config["evaluate"]["report_folder"]
     if not os.path.exists(report_folder):

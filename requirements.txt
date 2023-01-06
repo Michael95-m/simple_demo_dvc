@@ -6,3 +6,4 @@ scikit-learn==1.0.2
 kaggle==1.5.12
 seaborn==0.12.1
 xgboost==1.6.2
+black==22.12.0

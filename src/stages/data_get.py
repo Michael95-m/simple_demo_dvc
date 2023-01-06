@@ -6,14 +6,16 @@ import json
 import os
 from utils.log import getlogger
 
+
 def read_kaggle_json():
     with open("kaggle.json") as f:
         kaggle_data = json.load(f)
 
-        return kaggle_data 
+        return kaggle_data
+
 
 def get_data(config_path: Text) -> None:
-    
+
     with open(config_path) as conf_file:
         config = yaml.safe_load(conf_file)
 
@@ -28,6 +30,7 @@ def get_data(config_path: Text) -> None:
         f.extractall(config["data_load"]["dataset_folder"])
     logger.info("Save the data")
 
+
 if __name__ == "__main__":
 
     # kaggle_data = read_kaggle_json()
@@ -41,6 +44,3 @@ if __name__ == "__main__":
     args = args_parser.parse_args()
 
     get_data(config_path=args.config)
-
-
-
