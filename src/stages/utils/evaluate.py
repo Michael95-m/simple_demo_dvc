@@ -33,9 +33,9 @@ def get_report(cm: np.ndarray) -> Dict:
     accuracy = (tp + tn) / (tp + tn + fp + fn)
     specificity = tn / (tn+fp)
     sensitivity = tp / (tp + fn)
-    report = {"accuracy": round(accuracy, 2),
-            "specificity": round(specificity, 2),
-            "sensitivity": round(sensitivity, 2)}
+    report = {"accuracy": round(accuracy, 4),
+            "specificity": round(specificity, 4),
+            "sensitivity": round(sensitivity, 4)}
 
     return report
 
