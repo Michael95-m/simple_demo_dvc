@@ -21,7 +21,7 @@ data_split:
 
 train:
   cv: 3
-  estimator_name: dectree
+  estimator_name: randforest
   estimators:
     logreg:
       param_grid:
@@ -43,6 +43,11 @@ train:
       param_grid:
         criterion: ['gini', 'entropy']
         max_depth: [3, 4, 5, 6, 7, 8, 9, 10]
+    randforest:
+      param_grid:
+        n_estimators: [100]
+        max_depth:  [11]
+        min_samples_split:  [15]
   model_folder: 'model'
   model_path: 'model/model.joblib'
   scaler_path:  'model/scaler.joblib'
