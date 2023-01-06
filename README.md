@@ -39,6 +39,10 @@ If you run in your python virtual environment, then add virtual environment to J
 python -m ipykernel install --user --name=dvc-venv
 ```
 
+### 1.3. Exporting kaggle keys for github actions (Optional: Need only if you forked this repo)
+
+In order to work properly with github action, **KAGGLE_USERNAME** and **KAGGLE_KEY** from kaggle api or kaggle.json are needed to be added. It can be done through Settings -> Secrets(Under the *Security*) -> Actions -> New repository secret and then fill **Name** and **Secret**. Environment variables are needed to be added like that in order to work in github actions. These two environment variables are necessary for data loading stage in data pipeline.
+
 ## 2. Processing Pipeline
 
 There are five steps needed to done by this project. First, download the data, select the features,split the data, train the model and evaluate it.
