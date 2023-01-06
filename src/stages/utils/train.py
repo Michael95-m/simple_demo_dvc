@@ -1,5 +1,6 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
 from xgboost import XGBClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler
@@ -18,17 +19,21 @@ def get_supported_estimator() -> Dict:
     return {
         "logreg": LogisticRegression,
         "knn":  KNeighborsClassifier,
-        "xgb":  XGBClassifier
+        "xgb":  XGBClassifier,
+        "dectree": DecisionTreeClassifier
     }
 
-def train(x_train: pd.DataFrame, y_train: np.ndarray, estimator_name: Text, param_grid: Dict, cv: int):
+def train(x_train: pd.DataFrame, y_train: np.ndarray, estimator_name: Text, param_grid: Dict, cv: int, random_state: int):
 
     estimators = get_supported_estimator()
 
     if estimator_name not in estimators.keys():
         raise UnsupportedClassifier(estimator_name)
 
-    estimator = estimators[estimator_name]()
+    if estimator_name == "dectree": ## to get reproducibility, need to see random_state
+        estimator = estimators[estimator_name](random_state=random_state) 
+    else:
+        estimator = estimators[estimator_name]()
 
     scaler = StandardScaler()
     x_train_scaled = scaler.fit_transform(x_train)

@@ -1,8 +1,6 @@
 import pandas as pd
 from typing import Text
 import yaml
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import GridSearchCV
 from utils.train import train
 from utils.log import getlogger
 import joblib
@@ -32,7 +30,8 @@ def data_train(config_path: Text) -> None:
     logger.info("Train model")
     model, scaler = train(x_train=x_train, y_train=y_train, estimator_name=estimator,
                         param_grid=param_grid,
-                        cv=cv)
+                        cv=cv,
+                        random_state=config["base"]["random_state"])
     logger.info(f"Best Score: {round(model.best_score_, 2)}")
 
     model_folder_path = config["train"]["model_folder"]

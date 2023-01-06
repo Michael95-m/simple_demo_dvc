@@ -45,16 +45,19 @@ stages:
       md5: 6a5c7defbd522ec508be4464727ccb5e
       size: 3453410
     - path: src/stages/train.py
-      md5: 24bb799f50cee1746fcfa9e396e669d9
-      size: 1745
+      md5: 12fbc71c7066d589d818c5ddc0ea8fe2
+      size: 1716
     - path: src/stages/utils/log.py
       md5: ec6d9907a691aa06324ad985951b4128
       size: 625
     - path: src/stages/utils/train.py
-      md5: adcbba04fdaa3aca097f23e595eff6ac
-      size: 1399
+      md5: 146b12fef17e1ae01af84f84982c74b7
+      size: 1686
     params:
       params.yaml:
+        base:
+          random_state: 42
+          log_level: INFO
         data_split:
           test_size: 0.3
           trainset_path: data/processed/train.csv
@@ -67,7 +70,7 @@ stages:
           target_column: Diabetes
         train:
           cv: 3
-          estimator_name: xgb
+          estimator_name: dectree
           estimators:
             logreg:
               param_grid:
@@ -91,7 +94,6 @@ stages:
               param_grid:
                 min_child_weight:
                 - 1
-                - 5
                 gamma:
                 - 1
                 - 5
@@ -99,17 +101,30 @@ stages:
                 - 1.0
                 colsample_bytree:
                 - 0.6
-                - 0.8
                 - 1.0
                 max_depth:
                 - 3
+            dectree:
+              param_grid:
+                criterion:
+                - gini
+                - entropy
+                max_depth:
+                - 3
+                - 4
+                - 5
+                - 6
+                - 7
+                - 8
+                - 9
+                - 10
           model_folder: model
           model_path: model/model.joblib
           scaler_path: model/scaler.joblib
     outs:
     - path: model/model.joblib
-      md5: a0353564814edf230e80305ab844d808
-      size: 126041
+      md5: f198806ef1ff7c3123ffe211ae8ce82b
+      size: 40058
     - path: model/scaler.joblib
       md5: 034384424b5bd54ec590a37f4caf3f8f
       size: 1606
@@ -182,8 +197,8 @@ stages:
       md5: 55384cfd635be459af11e2738b3d5fd5
       size: 1480417
     - path: model/model.joblib
-      md5: a0353564814edf230e80305ab844d808
-      size: 126041
+      md5: f198806ef1ff7c3123ffe211ae8ce82b
+      size: 40058
     - path: model/scaler.joblib
       md5: 034384424b5bd54ec590a37f4caf3f8f
       size: 1606
@@ -191,7 +206,7 @@ stages:
       md5: d3a78f28c3e8296fe0f27558c315118f
       size: 2233
     - path: src/stages/utils/evaluate.py
-      md5: d44f180f6e728dbefa1636c5b04e299d
+      md5: e5ca8d01d89cf7183052dbaf4dfd82cc
       size: 1437
     - path: src/stages/utils/log.py
       md5: ec6d9907a691aa06324ad985951b4128
@@ -218,7 +233,7 @@ stages:
           target_column: Diabetes
         train:
           cv: 3
-          estimator_name: xgb
+          estimator_name: dectree
           estimators:
             logreg:
               param_grid:
@@ -242,7 +257,6 @@ stages:
               param_grid:
                 min_child_weight:
                 - 1
-                - 5
                 gamma:
                 - 1
                 - 5
@@ -250,20 +264,33 @@ stages:
                 - 1.0
                 colsample_bytree:
                 - 0.6
-                - 0.8
                 - 1.0
                 max_depth:
                 - 3
+            dectree:
+              param_grid:
+                criterion:
+                - gini
+                - entropy
+                max_depth:
+                - 3
+                - 4
+                - 5
+                - 6
+                - 7
+                - 8
+                - 9
+                - 10
           model_folder: model
           model_path: model/model.joblib
           scaler_path: model/scaler.joblib
     outs:
     - path: report/confusion_matrix.png
-      md5: 4c9d3030f20a5e0fac89a4642a3dfaaa
-      size: 24628
+      md5: d1902759e01e3eec904b475e249755f0
+      size: 24581
     - path: report/confusion_matrix_data.csv
-      md5: 74b56f360c6dd4817227e337b92e38e6
-      size: 442529
+      md5: 24962dc79b2c3c98781638828d7384ca
+      size: 443084
     - path: report/report.json
-      md5: b54522546ed4704bc56e6fabd4fb43ff
-      size: 73
+      md5: 618c5db0f5ea68890c7d5eae224f4a3b
+      size: 80
