@@ -45,6 +45,7 @@ stages:
     - data/processed/train.csv
     - src/stages/utils/log.py
     params:
+    - base
     - featurize
     - data_split
     - train
