@@ -4,11 +4,11 @@ stages:
     cmd: python src/stages/data_get.py --config=params.yaml
     deps:
     - path: src/stages/data_get.py
-      md5: 40162404985b3cdcbc617f95b0e2b0dd
-      size: 1302
+      md5: 79b1180fb658e000f131028d054904e3
+      size: 1297
     - path: src/stages/utils/log.py
-      md5: ec6d9907a691aa06324ad985951b4128
-      size: 625
+      md5: e1c8d76c94e2be36d2139d82f9cee9ff
+      size: 629
     params:
       params.yaml:
         base:
@@ -45,14 +45,14 @@ stages:
       md5: 6a5c7defbd522ec508be4464727ccb5e
       size: 3453410
     - path: src/stages/train.py
-      md5: 12fbc71c7066d589d818c5ddc0ea8fe2
-      size: 1716
+      md5: 9bf7aa6ef7f61e8d6aaa3bc008062143
+      size: 1678
     - path: src/stages/utils/log.py
-      md5: ec6d9907a691aa06324ad985951b4128
-      size: 625
+      md5: e1c8d76c94e2be36d2139d82f9cee9ff
+      size: 629
     - path: src/stages/utils/train.py
-      md5: a303fc36171b81e13a69aac8c09aad2c
-      size: 1822
+      md5: 6121d87a5b2daa8689a38332cadad58a
+      size: 1773
     params:
       params.yaml:
         base:
@@ -70,7 +70,7 @@ stages:
           target_column: Diabetes
         train:
           cv: 3
-          estimator_name: randforest
+          estimator_name: xgb
           estimators:
             logreg:
               param_grid:
@@ -85,10 +85,6 @@ stages:
             knn:
               param_grid:
                 n_neighbors:
-                - 1
-                - 3
-                - 5
-                - 7
                 - 9
             xgb:
               param_grid:
@@ -110,14 +106,7 @@ stages:
                 - gini
                 - entropy
                 max_depth:
-                - 3
-                - 4
-                - 5
-                - 6
-                - 7
                 - 8
-                - 9
-                - 10
             randforest:
               param_grid:
                 n_estimators:
@@ -131,8 +120,8 @@ stages:
           scaler_path: model/scaler.joblib
     outs:
     - path: model/model.joblib
-      md5: 385bcb24edf6a45b0ced982513e5bf5c
-      size: 11530465
+      md5: 0c3dcab7aa395dd8391c1aaacf7f2d6d
+      size: 124873
     - path: model/scaler.joblib
       md5: 034384424b5bd54ec590a37f4caf3f8f
       size: 1606
@@ -143,11 +132,11 @@ stages:
       md5: 9a9161518e3622deaa5655b42a2a197b
       size: 5287141
     - path: src/stages/feature_select.py
-      md5: 6fd9640f7e4aaa9ae2f81d0476a276ae
+      md5: be210d913ccbcf256c79ff7fbf24da4a
       size: 970
     - path: src/stages/utils/log.py
-      md5: ec6d9907a691aa06324ad985951b4128
-      size: 625
+      md5: e1c8d76c94e2be36d2139d82f9cee9ff
+      size: 629
     params:
       params.yaml:
         data_load:
@@ -171,11 +160,11 @@ stages:
       md5: d4027581f861aab6fe57755ab8fbfb95
       size: 4933672
     - path: src/stages/data_split.py
-      md5: 9fcc6fdc4a61f04352b8f5d6653283ee
-      size: 1164
+      md5: f285ddcbd9e76eec5e21ca378a3d26bd
+      size: 1192
     - path: src/stages/utils/log.py
-      md5: ec6d9907a691aa06324ad985951b4128
-      size: 625
+      md5: e1c8d76c94e2be36d2139d82f9cee9ff
+      size: 629
     params:
       params.yaml:
         base:
@@ -205,20 +194,20 @@ stages:
       md5: 55384cfd635be459af11e2738b3d5fd5
       size: 1480417
     - path: model/model.joblib
-      md5: 385bcb24edf6a45b0ced982513e5bf5c
-      size: 11530465
+      md5: 0c3dcab7aa395dd8391c1aaacf7f2d6d
+      size: 124873
     - path: model/scaler.joblib
       md5: 034384424b5bd54ec590a37f4caf3f8f
       size: 1606
     - path: src/stages/evaluate.py
-      md5: d3a78f28c3e8296fe0f27558c315118f
-      size: 2233
+      md5: 8fc33f15c59e5b197f5aa57ee8995899
+      size: 2255
     - path: src/stages/utils/evaluate.py
-      md5: e5ca8d01d89cf7183052dbaf4dfd82cc
-      size: 1437
+      md5: 029deb8ce0375be04deb22736831405d
+      size: 1439
     - path: src/stages/utils/log.py
-      md5: ec6d9907a691aa06324ad985951b4128
-      size: 625
+      md5: e1c8d76c94e2be36d2139d82f9cee9ff
+      size: 629
     params:
       params.yaml:
         data_split:
@@ -241,7 +230,7 @@ stages:
           target_column: Diabetes
         train:
           cv: 3
-          estimator_name: randforest
+          estimator_name: xgb
           estimators:
             logreg:
               param_grid:
@@ -256,10 +245,6 @@ stages:
             knn:
               param_grid:
                 n_neighbors:
-                - 1
-                - 3
-                - 5
-                - 7
                 - 9
             xgb:
               param_grid:
@@ -281,14 +266,7 @@ stages:
                 - gini
                 - entropy
                 max_depth:
-                - 3
-                - 4
-                - 5
-                - 6
-                - 7
                 - 8
-                - 9
-                - 10
             randforest:
               param_grid:
                 n_estimators:
@@ -302,11 +280,11 @@ stages:
           scaler_path: model/scaler.joblib
     outs:
     - path: report/confusion_matrix.png
-      md5: 80998413c12941bd1c5255c5045d1b70
-      size: 24330
+      md5: 4c9d3030f20a5e0fac89a4642a3dfaaa
+      size: 24628
     - path: report/confusion_matrix_data.csv
-      md5: c71914a1fe918e1a2f9c628a7b965169
-      size: 442637
+      md5: 74b56f360c6dd4817227e337b92e38e6
+      size: 442529
     - path: report/report.json
-      md5: 26c0ad638b83e8171689c5d2453132a4
+      md5: a79b40fd99b0928c89f55349b417ff1e
       size: 77

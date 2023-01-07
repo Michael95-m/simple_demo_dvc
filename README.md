@@ -55,9 +55,62 @@ In order to run this command, we need to prepare <b>dvc.yaml</b>. In this yaml f
 
 `dvc repro` is useful for automation of the pipeline. It is also useful for reproducibility of the data pipeline.
 
-## 3. Visualizing metrics and plots
+## 3. Version Control with dvc
 
-### 3.1. Visualizing metrics
+Reproducible ML experiments require versioned data, models and experiments. You should need to avoid manual versioning named like *model.pkl*, *model_logReg.pkl*.
+
+`dvc` works with data in two ways.
+
+1. Automated version of DVC pipeline output (from `dvc repro`)
+    - It automatically tracks the file from `deps` and `outs` from dvc.yaml
+
+2. Manually add files and folders for DVC version control with `dvc add` command
+    - `dvc add data.xml `
+
+### 3.1. Setup remote storage
+
+
+```sh
+mkdir -p /tmp/dvc
+dvc remote add -d myremote /tmp/dvc
+git commit .dvc/config -m "configure local remote"
+```
+
+The above commands will setup remote storage in your local folder named */tmp/dvc* . You can also setup remote storages in Google drive, Amazon S3 etc. For more info --> [here](https://dvc.org/doc/use-cases/versioning-data-and-models/tutorial)
+
+### 3.2. Push updated data or model to remote storage
+
+```sh
+dvc push
+```
+
+### 3.3. Pull data from remote storage
+
+```sh
+dvc pull
+```
+
+It is so helpful if you accidently delete some data.
+
+### 3.4. Track status of the data and models
+
+```sh
+dvc status
+```
+
+### 3.5. Switching versions
+
+You need to add versioning with `git tag` to give version number. Then you can switch versioning.
+First, use `git checkout` and then `dvc checkout`.
+
+```sh
+git checkout v1.0
+dvc checkout data.dvc
+```
+
+## 4. Visualizing metrics and plots
+
+### 4.1. Visualizing metrics
 
 It is vital to have reproducible pipelines so that we can easily manage experiments. We also need to evaluate  experiments by their resulting metrics such as accuracy. That's why metrics are a requirement for experiment management.
 
@@ -69,9 +122,9 @@ To track the metrics, we need to add `metrics` parameter in the stage (evaluate 
 dvc metrics show
 ```
 
-Another useful command is `dvc metrics diff`. This command shows the difference between the experiments. In order to work properly with this command, you need to track the **log file** associated with accuracy (**report/report.json** in my demo) with **git**. If that log file is ignored by git, you will get the blank value in `head` column.
+Another useful command is `dvc metrics diff`. This command shows the difference between the experiments. In order to work properly with this command, you need to track the **log file** associated with accuracy (**report/report.json** in my demo) with **git**. If that log file is ignored by git (I mean if entire folder is added in **.gitignore**), you will get the blank value in `head` column.
 
-### 3.2 Visualizing Plots
+### 4.2 Visualizing Plots
 
 In most of the cases, visualizing only metrics is not enough. We also need to visualize the plots too. 
 
@@ -82,6 +135,60 @@ In my demo, the pipeline can generate the confusion matrix by using **seaborn** 
 dvc plots show report/confusion_matrix_data.csv --template confusion -x y_pred -y y_test 
 ```
 
-## 4. CI (Continous Integration)
+## 5. Managing Experiments
+
+`dvc exp run` can be used to run experiments. 
+
+### 5.1. Modify parameters on-the-fly
+
+For example, in my demo, there are five different models in my configuration file, **params.yaml** (check **estimators** from **train** section). You can run each experiment without editing value in **params.yaml** with `dvc exp run` command. -S means --set-param
+
+```sh
+# to run logistic regression
+dvc exp run -S train.estimator_name=logreg
+
+## to run knn
+dvc exp run -S train.estimator_name=knn
+
+## to run decision tree
+dvc exp run -S train.estimator_name=dectree
+
+## to run random forest
+dvc exp run -S train.estimator_name=randforest
+
+## to run xgb
+dvc exp run -S train.estimator_name=xgb
+```
+
+Not only the model names but also different parameters of each model can be tested too.
+
+### 5.2. Navigating the experiment
+
+Use `dvc exp show --only-changed` to check the results of different experiments.
+
+![](img/navigate_experiment.png)
+
+It can be seen that the performance of **XGBoost** model is better than any other models. (Please check  the lines with `[exp-****]`)
+
+### 5.3. Making the experiment persistent
+
+Since **XGBoost** model has the best performance, we want to apply that experiment.
+
+```sh
+dvc exp apply exp-92216
+```
+
+**exp-92216** is the ID of the experiment with XGBoost(xgb) model.
+
+### 5.4. Make a branch from the experiment
+
+If we also want to keep the second best experiment (in my demo, random forest has the second best accuracy) as another branch, we can also do that with `dvc exp branch`.
+
+```sh
+dvc exp branch exp-7832b rand-forest
+```
+**exp-7832b** is the ID of the experiment with random forest(randforest) model
+
+## CI (Continous Integration)
 
 For CI, ci.yaml is created inside `.github/workflows` folder. You can write certain commands from **cml** library to output your model result  to readme file and also can check the error inside your pipeline.
