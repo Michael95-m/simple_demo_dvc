@@ -41,7 +41,9 @@ python -m ipykernel install --user --name=dvc-venv
 
 ### 1.3. Exporting kaggle keys for github actions (Optional: Need only if you forked this repo)
 
-In order to work properly with github action, **KAGGLE_USERNAME** and **KAGGLE_KEY** from kaggle api or kaggle.json are needed to be added. It can be done through Settings -> Secrets(Under the *Security*) -> Actions -> New repository secret and then fill **Name** and **Secret**. Environment variables are needed to be added like that in order to work in github actions. These two environment variables are necessary for data loading stage in data pipeline.
+In order to work properly with github action, **KAGGLE_USERNAME** and **KAGGLE_KEY** from kaggle api or kaggle.json are needed to be added. 
+
+It can be done through Settings -> Secrets(Under the *Security*) -> Actions -> New repository secret and then fill **Name** and **Secret**. Environment variables are needed to be added like that in order to work in github actions. These two environment variables are necessary for data loading stage in data pipeline.
 
 ## 2. Processing Pipeline
 
@@ -51,7 +53,7 @@ All these five steps can be reproduced by using dvc by this command
 dvc repro
 ``` 
 
-In order to run this command, we need to prepare <b>dvc.yaml</b>. In this yaml file, all five stages named data_get, feature_select, data_split, train and evaluate are well defined by their `cmd`(command), `deps`(dependency), `params`(parameter), `outs`(output),`metrics`(metric) and `plots`(plot).
+In order to run this command, we need to prepare <b>dvc.yaml</b>. In this yaml file, all five stages named **data_get**, **feature_select**, **data_split**, **train** and **evaluate** are well defined by their `cmd`(command), `deps`(dependency), `params`(parameter), `outs`(output),`metrics`(metric) and `plots`(plot).
 
 `dvc repro` is useful for automation of the pipeline. It is also useful for reproducibility of the data pipeline.
 
@@ -112,7 +114,7 @@ dvc checkout data.dvc
 
 ### 4.1. Visualizing metrics
 
-It is vital to have reproducible pipelines so that we can easily manage experiments. We also need to evaluate  experiments by their resulting metrics such as accuracy. That's why metrics are a requirement for experiment management.
+It is vital to have *reproducible pipelines* so that we can easily *manage experiments*. We also need to evaluate  experiments by their resulting metrics such as accuracy. That's why metrics are a requirement for experiment management.
 
 When dvc is used, we can add structured metrics  as an output of our reproducible pipeline and can also visualize the metrics. 
 
@@ -128,10 +130,12 @@ Another useful command is `dvc metrics diff`. This command shows the difference 
 
 In most of the cases, visualizing only metrics is not enough. We also need to visualize the plots too. 
 
-In my demo, the pipeline can generate the confusion matrix by using **seaborn** library. But there is another way we can generate this by using dvc. In order to do that, we just need a csv which consists of two columns (predicted value and true value for target column) with their respective value. Then the command that can generate the plot is 
+In my demo, the pipeline can generate the confusion matrix by using **seaborn** library. But there is another way we can generate this by using dvc. In order to do that, we just need a *csv* which consists of two columns (predicted value and true value for target column) with their respective value. Then the command that can generate the plot is 
 
 ```sh
-## template format is for confusion matrix and x-axis is the column named y_pred for predicted value and y-axis is y_test for true value which are from the file named confusion_matrix_data.csv inside report.
+## template format is for confusion matrix and x-axis is the column 
+## named y_pred for predicted value and y-axis is y_test for true value 
+## which are from the file named confusion_matrix_data.csv inside report.
 dvc plots show report/confusion_matrix_data.csv --template confusion -x y_pred -y y_test 
 ```
 
@@ -187,7 +191,7 @@ If we also want to keep the second best experiment (in my demo, random forest ha
 ```sh
 dvc exp branch exp-7832b rand-forest
 ```
-**exp-7832b** is the ID of the experiment with random forest(randforest) model
+**exp-7832b** is the ID of the experiment with random forest(randforest) model. The new branch will be named as **rand-forest**.
 
 ## CI (Continous Integration)
 
