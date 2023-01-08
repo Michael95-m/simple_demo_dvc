@@ -196,5 +196,3 @@ dvc exp branch exp-7832b rand-forest
 ## CI (Continous Integration)
 
 For CI, ci.yaml is created inside `.github/workflows` folder. You can write certain commands from **cml** library to output your model result  to readme file and also can check the error inside your pipeline.
-
-## Please do star this repository if you know something useful from here.
